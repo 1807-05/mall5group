@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+    <link href="/js/easyui1.5/themes/default/easyui.css" rel="stylesheet" type="text/css"></link>
+    <link href="/js/easyui1.5/themes/icon.css" rel="stylesheet" type="text/css"></link>
+    <script src="/js/easyui1.5/jquery.easyui.min.js" type="text/javascript"></script>
+    <script>
+
+
+        var i = 0;
+
+        function addOneTable() {
+            i++;
+            var countent = "";
+            var countent = "";
+            countent += "<tr align='center'>";
+            countent += "<td>属性值:<input name='attr_value[" + i + "].shxzh'></td>";
+            countent += "<td>单位:<input name='attr_value[" + i + "].shxzh_mch'></td>";
+            countent += "<td><input type='button' onclick='delRow(this)' value='删除'/></td>";
+            countent += "</tr>";
+
+            $("#tableId").append(countent);
+        }
+
+        function delRow(obj) {
+            //删除界面元素，当前行
+            $(obj).parents("tr").remove();
+        }
+
+    </script>
+</head>
+<body>
+添加属性:<br/>
+<form action="/attr/adds" method="post">
+    <!-- 第一个 -->
+    <table border="1" id="tableId">
+        <input name="flbh2" th:value="${flbh2}" type="hidden">
+        <tr align="center">
+            <td>属性名::<input id="shxm" name="shxm_mch"></td>
+            <td></td>
+            <td><a href='javascript:void(0)' onclick="addOneTable()">添加值</a></td>
+        </tr>
+        <tr align="center">
+            <td>属性值:<input name="attr_value[0].shxzh"></td>
+            <td>单位:<input name="attr_value[0].shxzh_mch"></td>
+            <td><input onclick="delRow(this)" type="button" value="删除"/></td>
+        </tr>
+    </table>
+    <input type="submit">
+</form>
+</body>
+</html>

@@ -12,4 +12,6 @@ public class CopyMallSku extends MallSku {
     //java对象中描述一对多的关系
 
     private ArrayList<MallSkuAttrValue> attrVal;
+
+
 }

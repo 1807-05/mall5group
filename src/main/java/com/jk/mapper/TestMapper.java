@@ -32,7 +32,7 @@ public interface TestMapper {
     List<Integer> getProduct(Integer flbh1);
 
     @Select("select * from t_mall_attr where flbh2=#{flbh2}")
-    List<Attrs> getAllCheckbox(Integer flbh2);
+    List<Attr> getAllCheckbox(Integer flbh2);
 
     List querythis(Integer ids);
 

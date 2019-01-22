@@ -3,6 +3,7 @@ package com.jk.service.impl;
 import com.jk.bean.*;
 import com.jk.mapper.TestMapper;
 import com.jk.service.TestService;
+import jdk.internal.util.xml.impl.Attrs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +50,9 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<Attrs> getCheckbox(Integer flbh1) {
+    public List<Attr> getCheckbox(Integer flbh1) {
         List<Integer> number = testMapper.getProduct(flbh1);
-        List<Attrs> attrs = new ArrayList<>();
+        List<Attr> attrs = new ArrayList<>();
         for (Integer flbh2 : number) {
             attrs =testMapper.getAllCheckbox(flbh2);
         }

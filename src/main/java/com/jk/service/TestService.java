@@ -16,7 +16,7 @@ public interface TestService {
 
     List<Trade_mark> getMark(Integer flbh1);
 
-    List<Attrs> getCheckbox(Integer flbh1);
+    List<Attr> getCheckbox(Integer flbh1);
 
     List querythis(Integer ids);
 

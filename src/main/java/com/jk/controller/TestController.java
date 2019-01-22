@@ -2,6 +2,7 @@ package com.jk.controller;
 
 import com.jk.bean.*;
 import com.jk.service.TestService;
+import jdk.internal.util.xml.impl.Attrs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,8 +50,8 @@ public class TestController {
     }
     @RequestMapping("getCheckbox")
     @ResponseBody
-    public List<Attrs> getCheckbox(Integer flbh1){
-        List<Attrs> attrs = testService.getCheckbox(flbh1);
+    public List<Attr> getCheckbox(Integer flbh1){
+        List<Attr> attrs = testService.getCheckbox(flbh1);
         return attrs;
     }
     @ResponseBody

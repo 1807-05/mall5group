@@ -7,11 +7,11 @@
  */  
 package com.jk.bean;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**   
  * 业精于勤荒于嬉,行成于思毁于随   
@@ -30,5 +30,28 @@ public class SendPage {
 	private Integer total;
 	
 	private List rows;
-	
+
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+
+	public List getRows() {
+		return rows;
+	}
+
+	public void setRows(List rows) {
+		this.rows = rows;
+	}
+
+	@Override
+	public String toString() {
+		return "SendPage{" +
+				"total=" + total +
+				", rows=" + rows +
+				'}';
+	}
 }

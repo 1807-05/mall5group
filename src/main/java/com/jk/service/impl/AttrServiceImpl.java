@@ -1,6 +1,7 @@
 package com.jk.service.impl;
 
 import com.jk.bean.Attr;
+import com.jk.bean.QueryParam;
 import com.jk.bean.Value;
 import com.jk.mapper.AttrMapper;
 import com.jk.service.AttrService;
@@ -30,6 +31,15 @@ public class AttrServiceImpl implements AttrService {
         }
 
         return mallAttrs;
+    }
+
+    //新增
+    @Override
+    public void addAttr(QueryParam queryParam) {
+        attrMapper.addAttr(queryParam);
+        System.out.println("=====>" + queryParam.getTempid());
+
+        attrMapper.addAttrValue(queryParam.getAttr_value(), queryParam.getTempid());
     }
 
 }

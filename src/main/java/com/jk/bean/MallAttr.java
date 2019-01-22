@@ -14,6 +14,9 @@ import java.util.Date;
 public class MallAttr {
 
 
+
+
+
     private Integer Id;        //编号
 
     private String shxm_mch;   //属性名称

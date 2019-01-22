@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="/js/jquery-2.1.1.min.js"></script>
+    <script src="/js/my97/WdatePicker.js"></script>
+    <link rel="stylesheet" href="/js/uploadify/uploadify.css" />
+    <script src="/js/uploadify/jquery.uploadify.min.js"></script>
+
+
+    <link rel="stylesheet" href="/js/kindeditor-4.1.10/themes/default/default.css"/>
+    <script src="/js/kindeditor-4.1.10/kindeditor-all.js"></script>
+
+    <link rel="stylesheet" href="/js/easyui1.5/themes/default/easyui.css" type="text/css"></link>
+    <link rel="stylesheet" href="/js/easyui1.5/themes/icon.css" type="text/css"></link>
+    <script type="text/javascript" src="/js/easyui1.5/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <form id="addFrom">
+    <hr>
+    商品sku管理<br/>
+    <select class="easyui-combobox" id="class1" name="flmch1" style="width:130px;">
+    </select >
+    <select class="easyui-combobox" id="class2" name="flmch2" style="width:130px;">
+    </select>
+    <select class="easyui-combobox" id="tradeMark" name="ppmch" style="width:130px;">
+    </select >
+    <hr>
+    属性列表页<br/>
+    <div id="typeId">
+
+
+    </div>
+    <hr>
+    展示属性值
+    <div id="orders">
+
+    </div>
+    <hr>
+    商品库存名称 <input name="sku_mch"> <br/>
+    商品库存数量 <input name="kc"><br/>
+    商品库存价格 <input name="jg"><br/>
+    </form>
+    <input type="button" value="点击添加" onclick="addsku()">
+</body>
+<script>
+    $(function(){
+        getThree();
+    })
+        function getThree() {
+            $('#class1').combobox({
+                url:'getClass1',
+                valueField:'id',
+                textField:'flmch1',
+                onChange:function(newValue,oldValue){//newValue 就是选中的id
+                    getClass2(newValue);
+                }
+            });
+        }
+        function getClass2(rid) {
+            $('#class2').combobox({
+                url: 'getClass2?flbh1='+rid,
+                valueField: 'id',
+                textField: 'flmch2',
+                onChange: function (newValue, oldValue) {//newValue 就是选中的id
+                    getMark(rid);
+                    getCheckbox(rid);
+                }
+            });
+        }
+        function getMark(rid){
+            $('#tradeMark').combobox({
+                url:'getMark?flbh1='+rid,
+                valueField:'id',
+                textField:'ppmch',
+            });
+    }
+
+        function getCheckbox(rid){
+            $.ajax({
+                url:"getCheckbox?flbh1="+rid,
+                type : "POST",
+                success : function(attrs) {
+                    console.log(attrs)
+                    var coun = "";
+                    $.each(attrs, function (index, obj) {
+                        //拼接属性名字
+                        coun += "<input type='checkbox' value=" + obj.id + " name='attrVal[" + index + "].shxm_id' onclick='getcheckedid(this)'> " + obj.shxm_mch + " "
+
+                    })
+                    $("#typeId").html(coun);
+                },
+                error : function() {
+                    alert("ajax访问失败了,查看控制台");
+                }
+            });
+
+        }
+
+    var indexGloal = -1;
+    function getcheckedid(check) {
+        indexGloal++;
+        var count = "";
+        if (check.checked) {
+            //当前复选框为勾选状态 添加属性值列表
+            var count2 = "";
+            count = $(check).val()
+            $.ajax({
+                url: 'querythis',
+                data: {ids: count},
+                success: function (item) {
+                    count2 += "<div id='sxmid_" + check.value + "'>"  //属性名字对应的属性值列表给包裹起来
+
+                    $.each(item, function (index, obj) {
+
+                        count2 += "<input type='radio' name='attrVal[" + indexGloal + "].shxzh_id' value=" + obj.id + ">" + obj.shxzh + "-" + obj.shxzhMch;
+
+                    })
+
+                    count2 += "<div>"
+                    count2 += "</br> </br>"
+                    $("#orders").append(count2)
+                }
+
+            })
+        } else {
+            //当前复选框为不勾选状态 移除对应的属性值列表
+            $("#sxmid_" + check.value).remove()
+        }
+
+
+    }
+    function addsku() {
+        $.ajax({
+            url: "addsku",
+            type: "POST",
+            data: $("form").serialize(),
+            success: function () {
+                location = location;
+            },
+            error: function () {
+                alert("失败了");
+            }
+        });
+
+    }
+</script>
+</html>

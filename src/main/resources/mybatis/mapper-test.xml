@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.TestMapper">
+
+    <insert id="addClass1" parameterType="com.jk.bean.Class_1">
+
+    void addClass_1(Class_1 class_1);
+    insert into t_mall_class_1 (flmch1)values(#{flmch1})
+
+    </insert>
+
+    <insert id="addClass2" parameterType="com.jk.bean.Class_2">
+
+       insert into t_mall_class_2 (flmch2)values(#{flmch2})
+
+    </insert>
+    <insert id="addTmclass" parameterType="com.jk.bean.Trade_mark">
+
+    insert into  t_mall_tm_class(pp_id,flbh1)values(#{pp_id},#{flbh1})
+
+    </insert>
+    <insert id="addTrademark" parameterType="com.jk.bean.Trade_mark">
+
+    insert into t_mall_trade_mark(ppmch url)values(#{ppmch},#{url})
+    </insert>
+
+    <select id="querythis" resultType="com.jk.bean.MallValue">
+    select *,shxzh_mch shxzhMch from t_mall_value where shxm_id=#{ids}
+  </select>
+    <insert id="addProduct" parameterType="com.jk.bean.Product">
+
+    insert into t_mall_product (shp_mch,chjshj) values(#{shp_mch},#{chjshj})
+    </insert>
+
+    <insert id="addMallSku" parameterType="com.jk.bean.MallValue">
+        insert into t_mall_sku (shp_id,kc,jg,chjshj,sku_mch) values(#{shp_id},#{kc},#{jg},#{chjshj},#{chjshj})
+
+    </insert>
+</mapper>

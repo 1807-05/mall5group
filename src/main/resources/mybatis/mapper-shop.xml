@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.ShopMapper">
+
+    <select id="queryShop" resultType="product">
+        select m.*, a1.flmch1 name1, a2.flmch2 name2, d.ppmch pinpai
+        from  t_mall_product m ,t_mall_class_1 a1,  t_mall_class_2 a2, t_mall_trade_mark d
+
+        where  m.flbh1=a1.id and m.flbh2=a2.id and m.pp_id= d.id
+    </select>
+
+  <!-- <insert id="addPho" >
+       insert into t_photo(name,proid) values(#{name},#{id})
+   </insert>-->
+
+    <insert id="addPro">
+        insert into t_mall_product(
+             shp_mch,
+             shp_tP,
+             flbh1,
+             flbh2,
+             pp_id,
+             chjshj,
+             shp_msh
+        ) values(
+            #{shp_mch},
+            #{shp_tP},
+            #{flbh1},
+            #{flbh2},
+           #{pp_id},
+            #{chjshj},
+            #{shp_msh}
+        )
+    </insert>
+</mapper>

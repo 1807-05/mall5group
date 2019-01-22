@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <!--引入jquery 一定放在第一行  -->
+    <script src="/js/jquery-2.1.1.min.js"></script>
+    <!--引入my97  -->
+    <script src="/js/my97/WdatePicker.js"></script>
+
+    <!--引入uploadify的样式 -->
+    <link rel="stylesheet" href="/js/uploadify/uploadify.css" />
+    <script src="/js/uploadify/jquery.uploadify.min.js"></script>
+
+    <!--引入kindedit的样式 -->
+    <link rel="stylesheet" href="/js/kindeditor-4.1.10/themes/default/default.css"/>
+    <script src="/js/kindeditor-4.1.10/kindeditor-all.js"></script>
+
+    <!--引入easyui的样式 -->
+    <link rel="stylesheet" href="/js/easyui1.5/themes/default/easyui.css" type="text/css"></link>
+    <link rel="stylesheet" href="/js/easyui1.5/themes/icon.css" type="text/css"></link>
+    <script type="text/javascript" src="/js/easyui1.5/jquery.easyui.min.js"></script>
+</head>
+<body>
+<a href="/shop/toUrl?url=addShop">商品新增</a>
+<table id="aa"  style="width:800px;height:400px;"></table>
+</body>
+<script type="text/javascript" th:inline="none">
+    $(function(){
+      queryUser();
+    })
+
+    function queryUser(){
+        $("#aa").datagrid({
+            url:'/shop/queryShop',
+            striped:true,
+            toolbar: '#tb',
+            pagination:true,
+            pageList:[1,2,3,4,5,6,7],
+            pageSize: 2, //默认显示多少条 这个值一定在pagelist中存在
+            rowStyler: function(index,row){
+                console.log(index)//当前行索引
+                console.log(row)
+                if (index%2==0){
+                    return 'background-color:pink;color:#fff;';
+                }else{
+                    return 'background-color:green;color:#fff;';
+                }
+            },
+            columns:[[
+
+                {field:'id',title:'Id',width:'5%'},
+                {field:'shp_mch',title:'商品名称',width:100,},
+                {field:'shp_tp',title:'商品图片',width:100,align:'center',
+                    formatter: function(value,row,index){
+                        return "<img width='66' src='<%=path%>/upload/"+value+"'>";
+                    }
+                } ,
+                {field:'name1',title:'分类编号1',width:100,align:'center'} ,
+                {field:'name2',title:'分类编号2',width:100,align:'center'} ,
+                {field:'pinpai',title:'品牌',width:100,align:'center'} ,
+                {field:'chjshj',title:'创建时间',width:100,align:'center',
+                    formatter: function(value,row,index){
+                        //字符串 转成日期对象
+                        var mydate = new Date(value)//格式化日期
+                        var str = mydate.toLocaleDateString()//日期对象的方法
+                        return str;
+                    }} ,
+
+                {field:'shp_msh',title:'商品描述',width:100,align:'right'}
+
+            ]],
+        });
+    }
+    //=====
+    function queryUser2(){
+
+        $('#aa').datagrid('load',serializeFrom2Obj($("#fm")));
+
+    }
+    //把表单转换为一个对象
+    function serializeFrom2Obj (obj) {
+        var o = {};
+        var a = obj.serializeArray();//[{name:'price',value='12'},{},{}]
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+
+    function setEvent(){
+
+        $("#btn_dele").linkbutton({//点击批删按钮
+            onClick:function(){
+                var rows = $("#aa").datagrid('getChecked');
+                //判断有没有选中数据
+                if(rows.length==0){ //没有选择数据  进行中断提交 并提示
+                    $.messager.show({
+                        title:'我的消息',
+                        msg:'至少要选择一条数据',
+                        timeout:3000,
+                        showType:'fade'
+                    });
+                    return;
+                }else{
+                    //选择数据了  提示确认删除
+                    $.messager.confirm('确认','您确认想要删除这'+rows.length+'条记录吗？',function(r){
+                        if (r){    //点击确认
+                            var ids ='';
+                            $.each(rows,function(index,obj){
+                                ids+= ids==''?obj.id:","+obj.id;
+                            });
+                            deleteItem(ids);
+                        }
+                    });
+
+                }
+            }
+        })
+
+    }
+
+    function deleteItem(ids){
+        $.ajax({
+            url:"http://127.0.0.1:8080/book/delBook",
+            type:"POST",
+            data:{id:ids},
+            success:function(result){
+                //数据库已经删除成功 页面需要更新
+                $("#aa").datagrid('reload');//reload 会重新请求数据 但会停留在当前页
+                //load 会跑到第一页
+                $.messager.show({
+                    title:'消息',
+                    msg:'删除成功!!',
+                    timeout:5000,
+                    showType:'slide'
+                });
+
+            },
+            error:function(){
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+</script>
+</html>

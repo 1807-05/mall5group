@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.AttrMapper">
+
+<select id="queryAttr" resultType="com.jk.bean.Attr">
+          select * from t_mall_attr ma
+</select>
+
+<select id="AttrByIdgetAttrValueName" resultType="com.jk.bean.Value">
+         select mv.shxzh,mv.shxzh_mch from t_mall_value mv where mv.shxm_id=#{id}
+ </select>
+</mapper>

@@ -1,8 +1,6 @@
 package com.jk.service.impl;
 
-import com.jk.bean.Attr;
-import com.jk.bean.QueryParam;
-import com.jk.bean.Value;
+import com.jk.bean.*;
 import com.jk.mapper.AttrMapper;
 import com.jk.service.AttrService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,8 @@ public class AttrServiceImpl implements AttrService {
 
     //查询属性列表
     @Override
-    public List<Attr> queryAttr(Attr attr) {
-        List<Attr> mallAttrs = attrMapper.queryAttr(attr);
+    public List<Attr> queryAttr(Attr attr,Page page) {
+        List<Attr> mallAttrs = attrMapper.queryAttr(attr,page);
         for (Attr Attr : mallAttrs) {
             List<Value> nameList = attrMapper.AttrByIdgetAttrValueName(Attr.getId());
             String flag="";
@@ -40,6 +38,12 @@ public class AttrServiceImpl implements AttrService {
         System.out.println("=====>" + queryParam.getTempid());
 
         attrMapper.addAttrValue(queryParam.getAttr_value(), queryParam.getTempid());
+    }
+
+    //登陆
+    @Override
+    public User login(User user) {
+        return attrMapper.login(user);
     }
 
 }

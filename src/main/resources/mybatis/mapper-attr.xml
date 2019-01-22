@@ -8,21 +8,23 @@
 
 <select id="AttrByIdgetAttrValueName" resultType="com.jk.bean.Value">
          select mv.shxzh,mv.shxzh_mch from t_mall_value mv where mv.shxm_id=#{id}
- </select>
-    <!--//新增 attr-->
-    <insert id="addAttr">
+</select>
+<!--//新增 attr-->
+<insert id="addAttr">
         insert into t_mall_attr(shxm_mch,shfqy,flbh2) VALUES (#{shxm_mch},1,#{flbh2})
-        <selectKey resultType="int" order="AFTER" keyProperty="tempid">
+    <selectKey resultType="int" order="AFTER" keyProperty="tempid">
             SELECT LAST_INSERT_ID() as tempid
-        </selectKey>
-    </insert>
+    </selectKey>
+ </insert>
     <!--//新增 value-->
-    <insert id="addAttrValue">
+<insert id="addAttrValue">
         insert into t_mall_value (shxzh,shfqy,shxm_id,shxzh_mch) VALUES
         <foreach collection="list" separator="," item="item" index="index">
             (#{item.shxzh},'1',#{tempid},#{item.shxzh_mch})
         </foreach>
-    </insert>
-
-
+</insert>
+<!-- 登录 -->
+<select id="login" parameterType="com.jk.bean.User" resultType="com.jk.bean.User">
+  	select * from t_user WHERE loginacct = #{loginacct} and userpswd = #{userpswd}
+</select>
 </mapper>

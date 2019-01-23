@@ -9,7 +9,7 @@ import java.util.Date;
 public class Product {
   private  Integer     id;
   private   String     shp_mch;
-  private   String     shp_tP;
+  private   String     shp_tp;
   private    Integer   flbh1;
   private   Integer    flbh2;
   private   Integer    pp_id;
@@ -37,12 +37,12 @@ public class Product {
     this.shp_mch = shp_mch;
   }
 
-  public String getShp_tP() {
-    return shp_tP;
+  public String getShp_tp() {
+    return shp_tp;
   }
 
-  public void setShp_tP(String shp_tP) {
-    this.shp_tP = shp_tP;
+  public void setShp_tp(String shp_tp) {
+    this.shp_tp = shp_tp;
   }
 
   public Integer getFlbh1() {
@@ -114,7 +114,7 @@ public class Product {
     return "Product{" +
             "id=" + id +
             ", shp_mch='" + shp_mch + '\'' +
-            ", shp_tP='" + shp_tP + '\'' +
+            ", shp_tp='" + shp_tp + '\'' +
             ", flbh1=" + flbh1 +
             ", flbh2=" + flbh2 +
             ", pp_id=" + pp_id +

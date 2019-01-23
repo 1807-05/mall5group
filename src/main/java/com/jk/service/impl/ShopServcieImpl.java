@@ -8,11 +8,13 @@ import com.jk.mapper.ShopMapper;
 import com.jk.service.ShopService;
 
 import com.jk.utils.FileUtil;
+import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,8 +42,16 @@ public class ShopServcieImpl implements ShopService {
 
   @Override
   public void addPro(Product pro) {
-   /* shopMapper.addPho(pro.getShop_tP(),pro.getId());*/
+
+
     shopMapper.addPro(pro);
+   Product po =shopMapper.getPro(pro.getShp_mch());
+
+	 String ad=pro.getShp_tp();
+	 String [] arr=ad.split(",");
+	 for(int i=0;i<arr.length;i++){
+		shopMapper.addPho(po.getId(),arr[i]);
+	 }
 
   }
 }

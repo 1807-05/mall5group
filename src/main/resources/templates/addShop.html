@@ -31,9 +31,11 @@
      商品名称：<input type="text" name="shp_mch"><br>
 <hr>
      商品描述:<textarea name="shp_msh" ></textarea><br>
-     商品图片:<input  type="text" name="shp_tP">
-             <input type="file" id="mg"><img id="ms" width="100">
-             <div id="div1"></div><br>
+     商品图片:
+             <input type="file" id="mg">
+             <div id="div1">
+
+             </div><br>
  </form>
      <input type="button" onclick="addBook()"  value="提交">
 </body>
@@ -91,9 +93,9 @@
            }
        })
    }
-
+   var num=0;
+   var tp2="";
    function preFile(){
-
     //上传插件
        $("#mg").uploadify({
            //插件自带  不可忽略的参数
@@ -124,10 +126,20 @@
            //成功回调函数 file：文件对象。data后台输出数据
            'onUploadSuccess':function(file,data,response){
 
-               //给img框赋值进行展示
+              /* //给img框赋值进行展示
                $("#ms").attr("src","/upload/"+data);
                //给隐藏的文本框赋值 传到后台
-               $("[name='shp_tP']").val(data);
+               $("[name='shp_tP']").val(data);*/
+
+               var imgurl = "/upload/"+data
+               var  tp="";
+               tp+=' <input name="shp_tp" id="hideImg'+num+'" value="'+data+'" type="text" >';
+               tp+='<img id="testimg'+num+'" src="'+imgurl+'" width="50px" height="50px">' ;
+               tp+=tp2;
+               $("#div1").html(tp);
+               tp2=$("#div1").html();
+               num++;
+
            }
        });
    }

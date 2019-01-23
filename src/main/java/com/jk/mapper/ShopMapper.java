@@ -8,7 +8,12 @@ import java.util.List;
 public interface ShopMapper {
   List<Product> queryShop();
 
- /* void addPho(@Param("name") String shop_tp, @Param("id") Integer id);*/
 
   void addPro(Product pro);
+
+  
+
+  Product getPro(String shp_mch);
+
+  void addPho(@Param("id") Integer id, @Param("name") String s);
 }

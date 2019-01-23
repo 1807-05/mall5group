@@ -52,10 +52,11 @@
             columns:[[
 
                 {field:'id',title:'Id',width:'5%'},
-                {field:'shp_mch',title:'商品名称',width:100,},
+                {field:'shp_mch',title:'商品名称',width:100},
+
                 {field:'shp_tp',title:'商品图片',width:100,align:'center',
                     formatter: function(value,row,index){
-                        return "<img width='66' src='<%=path%>/upload/"+value+"'>";
+                        return "<img width='66' src='/upload/"+value+"'>";
                     }
                 } ,
                 {field:'name1',title:'分类编号1',width:100,align:'center'} ,

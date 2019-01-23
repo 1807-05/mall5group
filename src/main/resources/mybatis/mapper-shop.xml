@@ -9,14 +9,18 @@
         where  m.flbh1=a1.id and m.flbh2=a2.id and m.pp_id= d.id
     </select>
 
-  <!-- <insert id="addPho" >
-       insert into t_photo(name,proid) values(#{name},#{id})
-   </insert>-->
+  <insert id="addPho" >
+       insert into t_mall_product_image(shp_id,url)
+       values(
+       #{id},
+       #{name}
+       )
+   </insert>
 
     <insert id="addPro">
         insert into t_mall_product(
              shp_mch,
-             shp_tP,
+             shp_tp,
              flbh1,
              flbh2,
              pp_id,
@@ -24,7 +28,7 @@
              shp_msh
         ) values(
             #{shp_mch},
-            #{shp_tP},
+            #{shp_tp},
             #{flbh1},
             #{flbh2},
            #{pp_id},
@@ -32,4 +36,8 @@
             #{shp_msh}
         )
     </insert>
+
+    <select id="getPro" resultType="product">
+        select * from t_mall_product where shp_mch=#{shp_mch}
+    </select>
 </mapper>

@@ -29,9 +29,10 @@
     <form id="query_form">
         商品属性管理
         <input id="class1">
-        <input id="class2" name="queryid">
+        <input id="class2" name="flbh2" >
     </form>
-
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:void(0)" id="btn_add"
+       onClick='queryTiao()'>搜索</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:void(0)" id="btn_add"
        onClick='addAttr()'>新增</a>
 </div>
@@ -44,8 +45,29 @@
         queryAttr();
         //调用初始化查询
         startDatagried()
-    })
 
+    })
+    //条件查询
+    function queryTiao(){
+        //加载数据  直接发送一个对象
+        $("#dg").datagrid('load',serializeFrom2Obj($("#query_form")));
+    }
+    //把表单转换为一个对象
+    function serializeFrom2Obj (obj) {
+        var o = {};
+        var a = obj.serializeArray();//[{name:'price',value='12'},{},{}]
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
 
     var flag = null;
     function queryAttr() {
@@ -63,14 +85,14 @@
                     textField: 'flmch2',
                     onSelect: function (item) {
                         flag = item.id;
-
-
                     }
 
                 });
             }
         });
     }
+
+
 
     function addAttr() {
         if (flag != null && flag != "") {

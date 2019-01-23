@@ -2,13 +2,14 @@ package com.jk.mapper;
 
 import com.jk.bean.*;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface AttrMapper {
 
     //查询attr表
-    List<Attr> queryAttr(Attr attr,Page page);
+    List<Attr> queryAttr(@Param("attr") Attr attr, @Param("page") Page page);
 
     //查询value表
     List<Value> AttrByIdgetAttrValueName(Integer id);

@@ -4,6 +4,14 @@
 
 <select id="queryAttr" resultType="com.jk.bean.Attr">
           select * from t_mall_attr ma
+          <where>
+
+              <if test="attr.flbh2 != null">
+                 ma.flbh2=#{attr.flbh2}
+              </if>
+          </where>
+
+          
 </select>
 
 <select id="AttrByIdgetAttrValueName" resultType="com.jk.bean.Value">
